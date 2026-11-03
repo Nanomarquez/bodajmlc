@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #f7f4ee;
+  --color-paper: #fbf9f4;
+  --color-sand: #e8dfd2;
+  --color-mist: #e5eee3;
+  --color-sage: #7e9478;
+  --color-sage-deep: #3e5144;
+  --color-sage-ink: #2c3b32;
+  --color-stone: #5e5a54;
+  --color-ink: #2a2926;
+}
+
+@theme inline {
+  --font-serif: var(--font-cormorant), "Palatino Linotype", Palatino, serif;
+  --font-sans: var(--font-outfit), "Segoe UI", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  overflow-x: clip;
+  min-height: 100%;
+}
+
+::selection {
+  background: #d5e0d1;
+  color: #243028;
+}
+
+.hero-wash {
+  background-color: #f7f4ee;
+  background-image:
+    radial-gradient(ellipse at 50% -8%, rgba(126, 148, 120, 0.2), transparent 52%),
+    radial-gradient(ellipse at 100% 100%, rgba(228, 235, 223, 0.95), transparent 46%),
+    radial-gradient(ellipse at 0% 85%, rgba(232, 223, 210, 0.85), transparent 40%);
+}
+
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 18vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.4;
+  }
+  82% {
+    opacity: 0.28;
+  }
+  100% {
+    transform: translate3d(16px, -108vh, 0) rotate(24deg);
+    opacity: 0;
+  }
+}
+
+.float-leaf {
+  animation-name: drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes drip {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
+}
+
+.drip-line {
+  display: block;
+  width: 1px;
+  height: 2.6rem;
+  transform-origin: top;
+  background: currentColor;
+  animation: drip 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@media (max-height: 760px) {
+  .hero-hint {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .float-leaf,
+  .drip-line {
+    display: none;
+  }
+
+  .motion-block {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
