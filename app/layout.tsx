@@ -31,11 +31,21 @@ export const metadata: Metadata = {
     locale: "es_AR",
     type: "website",
     siteName: "Analia & Javier · Lorena & Claudio",
+    images: [
+      {
+        url: "/og.jpg",
+        width: 625,
+        height: 350,
+        alt: "Alianzas de oro entre flores blancas",
+        type: "image/jpeg",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: wedding.seo.title,
     description: wedding.seo.description,
+    images: ["/og.jpg"],
   },
 };
 
