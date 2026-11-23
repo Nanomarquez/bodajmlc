@@ -1,4 +1,5 @@
-import { wedding } from "@/lib/config";
+import { wedding, type HostSlug } from "@/lib/config";
+import { getOrderedCouples } from "@/lib/couples";
 
 export const TIME_ZONE = "America/Argentina/Buenos_Aires";
 
@@ -62,14 +63,38 @@ export function mapsLinks(query: string) {
   };
 }
 
-export function buildRsvpMessage(name: string, count: number) {
-  const cantidad = count === 1 ? "1 persona" : `${count} personas`;
-  return wedding.rsvp.template
-    .replaceAll("{nombre}", name.trim())
-    .replaceAll("{cantidad}", cantidad);
+function cleanName(value: string) {
+  return value.trim().replace(/\s+/g, " ");
 }
 
-export function whatsappUrl(message: string) {
-  const phone = wedding.rsvp.phone.replace(/\D/g, "");
-  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+export function formatCoupleLine(host: HostSlug = null) {
+  const [first, second] = getOrderedCouples(host);
+  return `${first.short} y ${second.short}`;
+}
+
+export function buildRsvpMessage(
+  firstName: string,
+  lastName: string,
+  count: number,
+  host: HostSlug = null,
+) {
+  const nombre = cleanName(firstName);
+  const apellido = cleanName(lastName);
+  const guests = Math.max(1, count);
+  const extras = guests - 1;
+  const cantidad = guests === 1 ? "1 persona" : `${guests} personas`;
+  const acompanantes =
+    extras === 0 ? "" : extras === 1 ? " + 1 persona" : ` + ${extras} personas`;
+
+  return wedding.rsvp.template
+    .replaceAll("{nombre}", nombre)
+    .replaceAll("{apellido}", apellido)
+    .replaceAll("{acompanantes}", acompanantes)
+    .replaceAll("{cantidad}", cantidad)
+    .replaceAll("{parejas}", formatCoupleLine(host));
+}
+
+export function whatsappUrl(message: string, phone: string) {
+  const digits = phone.replace(/\D/g, "");
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 }

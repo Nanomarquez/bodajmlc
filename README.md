@@ -1,4 +1,4 @@
-# Invitación — Analia & Javier · Lorena & Claudio
+# Invitación — Analía & Javier · Lorena & Claudio
 
 Invitación digital de la boda doble. La estética es romántica natural: papel crema, verde salvia y detalles botánicos.
 
@@ -8,9 +8,14 @@ Todo lo que cambia está en `lib/config.ts`:
 
 - fecha y hora de la ceremonia (también mueve la cuenta regresiva)
 - hora, lugar y dirección de la celebración
-- alias y titular de Mercado Pago
-- número de WhatsApp y mensaje de confirmación
+- alias, titular de Mercado Pago y WhatsApp **por pareja**
 - fotografías
+
+Hay una sola página con dos enlaces:
+
+- Analía & Javier: `/aj`
+- Lorena & Claudio: `/lc`
+- Vista equilibrada: `/`
 
 Las fotos viven en `public/gallery`. Reemplazá cada archivo y actualizá su descripción en la configuración.
 

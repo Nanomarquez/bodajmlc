@@ -6,6 +6,7 @@ import { getWeddingDateParts } from "@/lib/format";
 import { easeLuxury } from "@/lib/motion";
 import { Sprig } from "@/components/Botanicals";
 import { FloralField } from "@/components/FloralField";
+import { useOrderedCouples } from "@/components/HostContext";
 import { ExpandRule, FadeIn } from "@/components/Reveal";
 import { TextLink } from "@/components/TextLink";
 
@@ -38,7 +39,7 @@ function CoupleBlock({
 export function Hero() {
   const reduce = useReducedMotion();
   const date = getWeddingDateParts();
-  const [first, second] = wedding.couples;
+  const [first, second] = useOrderedCouples();
 
   return (
     <section className="relative overflow-clip bg-ivory">

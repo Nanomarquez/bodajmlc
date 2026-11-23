@@ -63,6 +63,9 @@ function Photo({
                   ? "(min-width: 1024px) 50vw, 100vw"
                   : "(min-width: 1024px) 42vw, 100vw"
               }
+              loader={({ src, width, quality }) =>
+                `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality ?? 75}&v=${wedding.galleryVersion}`
+              }
               className="origin-center object-cover scale-[1.08] transition duration-700 ease-out group-hover:scale-[1.12]"
               style={{ objectPosition: image.focus }}
             />

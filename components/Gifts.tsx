@@ -4,19 +4,20 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, Copy } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { wedding } from "@/lib/config";
 import { easeLuxury } from "@/lib/motion";
 import { Eyebrow } from "@/components/Botanicals";
 import { FloralField } from "@/components/FloralField";
+import { useHostCouple } from "@/components/HostContext";
 import { Reveal } from "@/components/Reveal";
 import { buttonClass } from "@/components/TextLink";
 
 export function Gifts() {
+  const host = useHostCouple();
   const [copied, setCopied] = useState(false);
   const [failed, setFailed] = useState(false);
 
   async function copyAlias() {
-    const value = wedding.gift.alias;
+    const value = host.gift.alias;
     setFailed(false);
 
     try {
@@ -54,7 +55,7 @@ export function Gifts() {
           El mejor regalo es compartir este momento con vos.
         </h2>
         <p className="mt-6 font-serif text-xl leading-relaxed text-stone italic sm:text-2xl">
-          Pero si además querés hacernos un regalo, podés colaborar con nuestra nueva historia.
+          Pero si además querés hacernos una atención, podés colaborar con nuestra nueva historia.
         </p>
 
         <div className="mt-10 border border-sage/25 p-2 sm:p-3">
@@ -64,18 +65,18 @@ export function Gifts() {
               alt="Mercado Pago"
               width={1875}
               height={489}
-              className="mx-auto w-auto h-6"
+              className="mx-auto h-6 w-auto"
             />
             <p className="mt-7 font-sans text-[0.62rem] tracking-[0.28em] text-stone uppercase">
               Alias
             </p>
             <p className="mt-2 font-serif text-3xl break-all text-sage-ink select-all sm:text-4xl">
-              {wedding.gift.alias}
+              {host.gift.alias}
             </p>
             <p className="mt-5 font-sans text-[0.62rem] tracking-[0.28em] text-stone uppercase">
               Titular
             </p>
-            <p className="mt-2 font-serif text-2xl text-sage-ink">{wedding.gift.holder}</p>
+            <p className="mt-2 font-serif text-2xl text-sage-ink">{host.gift.holder}</p>
 
             <button type="button" onClick={copyAlias} className={`${buttonClass("solid")} mt-8`}>
               {copied ? <Check className="size-3.5" strokeWidth={1.75} aria-hidden="true" /> : <Copy className="size-3.5" strokeWidth={1.5} aria-hidden="true" />}

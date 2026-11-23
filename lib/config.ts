@@ -2,7 +2,8 @@
  * Toda la información editable de la invitación vive en este archivo.
  *
  * - `date` mueve la cuenta regresiva, la fecha visible y la hora de la ceremonia.
- * - Lugares, alias, WhatsApp y fotos se cambian acá.
+ * - Cada pareja tiene su slug de enlace (`/aj`, `/lc`), Mercado Pago y WhatsApp.
+ * - Lugares y fotos se cambian acá.
  * - Las imágenes están en `public/gallery`. Reemplazá el archivo y actualizá el texto alternativo.
  */
 
@@ -18,16 +19,39 @@ export const wedding = {
 
   couples: [
     {
-      a: "Analia Marquez",
+      slug: "aj",
+      a: "Analía Márquez",
       b: "Javier Montes",
-      short: "Analia & Javier",
+      short: "Analía & Javier",
       monogram: "A & J",
+      gift: {
+        alias: "anayloremarquez.80",
+        holder: "Diana Lorena Márquez",
+      },
+      /** Número con código de país, sin + ni espacios. Ejemplo: 5491112345678 */
+      rsvpPhone: "5491140977144",
+      seo: {
+        title: "Analía & Javier — Nos casamos",
+        description:
+          "Analía Márquez y Javier Montes se casan junto a Lorena Márquez y Claudio Chavez. Dos historias, un mismo día.",
+      },
     },
     {
-      a: "Lorena Marquez",
+      slug: "lc",
+      a: "Lorena Márquez",
       b: "Claudio Chavez",
       short: "Lorena & Claudio",
       monogram: "L & C",
+      gift: {
+        alias: "anayloremarquez.80",
+        holder: "Diana Lorena Márquez",
+      },
+      rsvpPhone: "5491140977144",
+      seo: {
+        title: "Lorena & Claudio — Nos casamos",
+        description:
+          "Lorena Márquez y Claudio Chavez se casan junto a Analía Márquez y Javier Montes. Dos historias, un mismo día.",
+      },
     },
   ],
 
@@ -39,45 +63,54 @@ export const wedding = {
   ],
 
   ceremony: {
-    place: "Nombre del lugar",
-    address: "Dirección de la ceremonia",
+    place: "La Casona Los Jazmines",
+    address: "La Casona Los Jazmines",
+    mapsUrl:
+      "https://www.google.com/maps/search/La%20Casona%20Los%20Jazmines/@-34.46242338,-58.79593417,17z?hl=es",
   },
 
   celebration: {
     time: "21:30 h",
-    place: "Nombre del salón",
-    address: "Dirección de la celebración",
-  },
-
-  gift: {
-    alias: "alias.mercadopago",
-    holder: "Nombre del titular",
+    place: "La Casona Los Jazmines",
+    address: "La Casona Los Jazmines",
+    mapsUrl:
+      "https://www.google.com/maps/search/La%20Casona%20Los%20Jazmines/@-34.46242338,-58.79593417,17z?hl=es",
   },
 
   rsvp: {
-    /** Número con código de país, sin + ni espacios. Ejemplo: 5491112345678 */
-    phone: "5491112345678",
     minGuests: 1,
     maxGuests: 8,
+    /**
+     * Placeholders:
+     * - {nombre} / {apellido} → del invitado principal
+     * - {acompanantes} → "" o " + 3 personas"
+     * - {cantidad} → "1 persona" / "4 personas"
+     * - {parejas} → pareja anfitriona primero (según /aj o /lc)
+     */
     template:
-      "Hola, soy {nombre}. Confirmo mi asistencia ({cantidad}) a la boda de Analia & Javier y Lorena & Claudio.",
+      "Hola, soy {nombre} {apellido}{acompanantes}. Confirmo mi asistencia ({cantidad}) a la boda de {parejas}.",
   },
 
+  /**
+   * Si reemplazás una foto y sigue la anterior, subí `galleryVersion`
+   * (ej. de 2 a 3) y recargá con Ctrl+Shift+R.
+   */
+  galleryVersion: 2,
   gallery: [
     {
       src: "/gallery/01.jpg",
-      alt: "Pareja de novios bajo un velo movido por el viento",
-      focus: "center 58%",
+      alt: "Las dos parejas con el niño en la celebración nocturna",
+      focus: "center 35%",
     },
     {
       src: "/gallery/02.jpg",
-      alt: "Ramo de novia con flores blancas, rosas y follaje",
-      focus: "76% 58%",
+      alt: "Las dos parejas con el niño bajo una pérgola de madera",
+      focus: "center 30%",
     },
     {
       src: "/gallery/03.jpg",
-      alt: "Pareja de novios junto al mar",
-      focus: "center 42%",
+      alt: "Las dos parejas con el niño vestidos de jean",
+      focus: "center 30%",
     },
     {
       src: "/gallery/04.jpg",
@@ -99,11 +132,14 @@ export const wedding = {
   closing: "¡Los esperamos para celebrar juntos!",
 
   seo: {
-    title: "Analia & Javier · Lorena & Claudio — Nos casamos",
+    title: "Analía & Javier · Lorena & Claudio — Nos casamos",
     description:
-      "Dos historias, un mismo día, una celebración inolvidable. Invitación a la boda de Analia Marquez y Javier Montes, y de Lorena Marquez y Claudio Chavez.",
+      "Dos historias, un mismo día, una celebración inolvidable. Invitación a la boda de Analía Márquez y Javier Montes, y de Lorena Márquez y Claudio Chavez.",
   },
 } as const;
 
+export type CoupleSlug = (typeof wedding.couples)[number]["slug"];
 export type Couple = (typeof wedding.couples)[number];
 export type GalleryImage = (typeof wedding.gallery)[number];
+/** `null` = vista equilibrada en `/`; gift/RSVP usan la primera pareja por defecto. */
+export type HostSlug = CoupleSlug | null;

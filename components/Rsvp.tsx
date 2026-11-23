@@ -5,23 +5,41 @@ import { useState, type FormEvent } from "react";
 import { wedding } from "@/lib/config";
 import { buildRsvpMessage, whatsappUrl } from "@/lib/format";
 import { Sprig } from "@/components/Botanicals";
+import { useHost, useHostCouple } from "@/components/HostContext";
 import { Reveal } from "@/components/Reveal";
 import { buttonClass } from "@/components/TextLink";
 
+const fieldClass =
+  "mt-3 w-full border-b border-ivory/35 bg-transparent py-3 text-center font-serif text-2xl text-ivory outline-none placeholder:text-ivory/45 focus:border-ivory";
+
 export function Rsvp() {
-  const [name, setName] = useState("");
+  const hostSlug = useHost();
+  const host = useHostCouple();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [count, setCount] = useState<number>(wedding.rsvp.minGuests);
   const [error, setError] = useState("");
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const guest = name.trim().replace(/\s+/g, " ");
-    if (guest.length < 2) {
-      setError("Escribí tu nombre para que podamos identificarte.");
+    const nombre = firstName.trim().replace(/\s+/g, " ");
+    const apellido = lastName.trim().replace(/\s+/g, " ");
+
+    if (nombre.length < 2) {
+      setError("Escribí tu nombre.");
       return;
     }
+    if (apellido.length < 2) {
+      setError("Escribí tu apellido.");
+      return;
+    }
+
     setError("");
-    window.open(whatsappUrl(buildRsvpMessage(guest, count)), "_blank", "noopener,noreferrer");
+    window.open(
+      whatsappUrl(buildRsvpMessage(nombre, apellido, count, hostSlug), host.rsvpPhone),
+      "_blank",
+      "noopener,noreferrer",
+    );
   }
 
   return (
@@ -39,26 +57,49 @@ export function Rsvp() {
         </p>
 
         <form onSubmit={submit} className="mt-10" noValidate>
-          <label htmlFor="guest-name" className="font-sans text-[0.66rem] tracking-[0.28em] text-ivory/70 uppercase">
-            Tu nombre
-          </label>
-          <input
-            id="guest-name"
-            name="name"
-            autoComplete="name"
-            maxLength={80}
-            value={name}
-            onChange={(event) => {
-              setName(event.target.value);
-              if (error) setError("");
-            }}
-            placeholder="Escribí tu nombre"
-            aria-invalid={error ? true : undefined}
-            aria-describedby={error ? "guest-error" : undefined}
-            className="mt-3 w-full border-b border-ivory/35 bg-transparent py-3 text-center font-serif text-2xl text-ivory outline-none placeholder:text-ivory/45 focus:border-ivory"
-          />
+          <div>
+            <label htmlFor="guest-first-name" className="font-sans text-[0.66rem] tracking-[0.28em] text-ivory/70 uppercase">
+              Nombre
+            </label>
+            <input
+              id="guest-first-name"
+              name="firstName"
+              autoComplete="given-name"
+              required
+              maxLength={60}
+              value={firstName}
+              onChange={(event) => {
+                setFirstName(event.target.value);
+                if (error) setError("");
+              }}
+              placeholder="Tu nombre"
+              aria-invalid={error.toLowerCase().includes("nombre") ? true : undefined}
+              className={fieldClass}
+            />
+          </div>
 
           <div className="mt-8">
+            <label htmlFor="guest-last-name" className="font-sans text-[0.66rem] tracking-[0.28em] text-ivory/70 uppercase">
+              Apellido
+            </label>
+            <input
+              id="guest-last-name"
+              name="lastName"
+              autoComplete="family-name"
+              required
+              maxLength={60}
+              value={lastName}
+              onChange={(event) => {
+                setLastName(event.target.value);
+                if (error) setError("");
+              }}
+              placeholder="Tu apellido"
+              aria-invalid={error.toLowerCase().includes("apellido") ? true : undefined}
+              className={fieldClass}
+            />
+          </div>
+
+          <div className="mt-10">
             <p id="guest-count-label" className="font-sans text-[0.66rem] tracking-[0.28em] text-ivory/70 uppercase">
               Personas
             </p>
@@ -83,6 +124,11 @@ export function Rsvp() {
                 <Plus className="size-4" strokeWidth={1.5} />
               </button>
             </div>
+            {count > 1 ? (
+              <p className="mt-3 font-serif text-base text-ivory/70 italic">
+                Vos + {count - 1} {count - 1 === 1 ? "persona" : "personas"}
+              </p>
+            ) : null}
           </div>
 
           {error ? (

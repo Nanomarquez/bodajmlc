@@ -21,32 +21,7 @@ const sans = Outfit({
 
 export const metadata: Metadata = {
   metadataBase: new URL(wedding.siteUrl),
-  title: wedding.seo.title,
-  description: wedding.seo.description,
   applicationName: "Nos casamos",
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: wedding.seo.title,
-    description: wedding.seo.description,
-    locale: "es_AR",
-    type: "website",
-    siteName: "Analia & Javier · Lorena & Claudio",
-    images: [
-      {
-        url: "/og.jpg",
-        width: 625,
-        height: 350,
-        alt: "Alianzas de oro entre flores blancas",
-        type: "image/jpeg",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: wedding.seo.title,
-    description: wedding.seo.description,
-    images: ["/og.jpg"],
-  },
 };
 
 export const viewport: Viewport = {

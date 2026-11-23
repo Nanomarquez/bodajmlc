@@ -1,10 +1,13 @@
+"use client";
+
 import { wedding } from "@/lib/config";
 import { BranchRule, HeartIcon } from "@/components/Botanicals";
 import { FloralField } from "@/components/FloralField";
+import { useOrderedCouples } from "@/components/HostContext";
 import { Reveal } from "@/components/Reveal";
 
 export function Closing() {
-  const [first, second] = wedding.couples;
+  const [first, second] = useOrderedCouples();
 
   return (
     <section className="relative overflow-clip bg-ivory px-6 py-28 text-center sm:px-10 md:py-40">
