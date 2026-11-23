@@ -64,7 +64,7 @@ export const wedding = {
 
   ceremony: {
     place: "La Casona Los Jazmines",
-    address: "La Casona Los Jazmines",
+    address: "Florida 6150 Del Viso",
     mapsUrl:
       "https://www.google.com/maps/search/La%20Casona%20Los%20Jazmines/@-34.46242338,-58.79593417,17z?hl=es",
   },
