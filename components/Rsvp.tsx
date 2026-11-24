@@ -44,8 +44,12 @@ export function Rsvp() {
 
   return (
     <section id="asistencia" className="relative overflow-clip bg-sage-ink px-6 py-24 text-ivory sm:px-10 md:py-32">
-      <Sprig className="pointer-events-none absolute -top-6 left-0 h-48 w-16 rotate-12 text-ivory/15" />
-      <Sprig className="pointer-events-none absolute right-0 -bottom-8 h-52 w-16 -rotate-12 text-ivory/15 md:scale-x-[-1]" />
+      <div className="leaf-sway pointer-events-none absolute -top-6 left-0">
+        <Sprig className="h-48 w-16 rotate-12 text-ivory/15" />
+      </div>
+      <div className="leaf-sway pointer-events-none absolute right-0 -bottom-8 [animation-duration:9s]">
+        <Sprig className="h-52 w-16 -rotate-12 text-ivory/15 md:scale-x-[-1]" />
+      </div>
 
       <Reveal className="relative mx-auto max-w-xl text-center">
         <h2 className="font-serif text-4xl font-light tracking-[0.08em] uppercase sm:text-6xl">

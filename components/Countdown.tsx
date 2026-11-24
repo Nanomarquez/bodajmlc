@@ -54,7 +54,7 @@ export function Countdown() {
   const shown = time ?? { days: 0, hours: 0, minutes: 0, seconds: 0, done: false };
 
   return (
-    <section className="bg-mist px-4 py-24 sm:px-10 md:py-32" aria-labelledby="cuenta-titulo">
+    <section className="bg-white px-4 py-24 sm:px-10 md:py-32" aria-labelledby="cuenta-titulo">
       <Reveal className="mx-auto max-w-4xl text-center">
         <Eyebrow>Cuenta regresiva</Eyebrow>
         <h2

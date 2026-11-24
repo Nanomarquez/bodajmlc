@@ -1,9 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { wedding } from "@/lib/config";
 import { getWeddingDateParts } from "@/lib/format";
-import { easeLuxury } from "@/lib/motion";
 import { Sprig } from "@/components/Botanicals";
 import { FloralField } from "@/components/FloralField";
 import { useOrderedCouples } from "@/components/HostContext";
@@ -37,7 +35,6 @@ function CoupleBlock({
 }
 
 export function Hero() {
-  const reduce = useReducedMotion();
   const date = getWeddingDateParts();
   const [first, second] = useOrderedCouples();
 
@@ -71,14 +68,9 @@ export function Hero() {
 
         <div className="mt-6 flex w-full flex-col items-center gap-5 md:mt-12 md:flex-row md:items-center md:justify-center md:gap-0">
           <CoupleBlock names={[first.a, first.b]} delay={0.75} />
-          <motion.div
-            className="motion-block origin-center text-sage-deep/80"
-            initial={{ opacity: 0, scale: reduce ? 1 : 0.7 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: reduce ? 0 : 1.1, delay: reduce ? 0 : 1.05, ease: easeLuxury }}
-          >
+          <div className="leaf-sway text-sage-deep/80">
             <Sprig className="h-20 w-10 md:mx-10 md:h-48 md:w-14 lg:mx-16" />
-          </motion.div>
+          </div>
           <CoupleBlock names={[second.a, second.b]} delay={0.9} />
         </div>
 

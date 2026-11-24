@@ -99,6 +99,94 @@ body {
   animation: drip 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate3d(var(--drift), 108vh, 0) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.petal {
+  position: absolute;
+  top: 0;
+  border-radius: 70% 30% 70% 30%;
+  background: linear-gradient(160deg, rgba(244, 232, 220, 0.95), rgba(176, 148, 128, 0.82));
+  box-shadow: 0 6px 10px -8px rgba(62, 81, 68, 0.55);
+  animation: petal-fall linear infinite;
+}
+
+@keyframes floral-bloom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.floral-bloom {
+  animation: floral-bloom 16s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes leaf-sway {
+  0%,
+  100% {
+    transform: rotate(-1.5deg);
+  }
+  50% {
+    transform: rotate(1.8deg);
+  }
+}
+
+.leaf-sway {
+  animation: leaf-sway 7s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.candle {
+  position: relative;
+  width: 7px;
+  height: 16px;
+  border-radius: 2px;
+  background: #cbb89a;
+}
+
+.candle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 6px;
+  height: 10px;
+  border-radius: 50% 50% 45% 45%;
+  background: #e7d7a8;
+  transform: translateX(-50%);
+  animation: candle-flicker 1.8s ease-in-out infinite;
+}
+
+.candle-delay::after {
+  animation-delay: -0.7s;
+}
+
+@keyframes candle-flicker {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.12, 0.92);
+  }
+}
+
 @media (max-height: 760px) {
   .hero-hint {
     display: none;
@@ -111,8 +199,12 @@ body {
   }
 
   .float-leaf,
-  .drip-line {
-    display: none;
+  .drip-line,
+  .petal,
+  .leaf-sway,
+  .floral-bloom,
+  .candle::after {
+    animation: none !important;
   }
 
   .motion-block {

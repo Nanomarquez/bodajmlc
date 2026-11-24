@@ -5,6 +5,7 @@ import { Gallery } from "@/components/Gallery";
 import { Gifts } from "@/components/Gifts";
 import { Grain } from "@/components/Grain";
 import { Hero } from "@/components/Hero";
+import { Cinema } from "@/components/Cinema";
 import { HostProvider } from "@/components/HostContext";
 import { Message } from "@/components/Message";
 import { Rsvp } from "@/components/Rsvp";
@@ -33,18 +34,20 @@ export function Invitation({ host = null }: { host?: HostSlug }) {
   return (
     <HostProvider host={host}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <ScrollProgress />
-      <Grain />
-      <main>
-        <Hero />
-        <Message />
-        <Countdown />
-        <EventDetails />
-        <Gallery />
-        <Gifts />
-        <Rsvp />
-        <Closing />
-      </main>
+      <Cinema>
+        <ScrollProgress />
+        <Grain />
+        <main>
+          <Hero />
+          <Message />
+          <Countdown />
+          <EventDetails />
+          <Gallery />
+          <Gifts />
+          <Rsvp />
+          <Closing />
+        </main>
+      </Cinema>
     </HostProvider>
   );
 }

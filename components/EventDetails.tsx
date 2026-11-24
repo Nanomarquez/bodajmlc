@@ -62,6 +62,10 @@ export function EventDetails() {
       <FloralField src="/gallery/bg-3.png" />
       <div className="relative mx-auto max-w-5xl">
         <Reveal>
+          <div className="mb-6 flex justify-center gap-6" aria-hidden="true">
+            <span className="candle" />
+            <span className="candle candle-delay" />
+          </div>
           <Eyebrow>El día</Eyebrow>
           <h2 className="text-center font-serif text-4xl font-light text-sage-ink italic sm:text-5xl">
             Ceremonia y celebración
